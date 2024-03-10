@@ -1,36 +1,50 @@
 import speech_recognition as sr
-from microphone import *
+from config import *
 
-class recognitionMain :
-    def recognition() :
+def microphoneName() :
+    #ตรวจสอบรายชื่อและหมายเลขไมโครโฟนในเครื่องคอมพิวเตอร์
+    for index, name in enumerate(sr.Microphone.list_microphone_names()):
+        print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))
 
-        #เลือกภาษาที่ต้องการแปลง ****สำคัญมาก****
-        languageRecognition = "th-TH"
+def setMicrophoneName() :
+    #เลือกไมโครโฟน ****สำคัญมาก****
+    microphoneNum = 2
+    return microphoneNum
 
-        #สร้างตัวแปรการรู้จำเสียง
-        recognizer = sr.Recognizer()
-        #เปิดใช้งานไมโครโฟน
-        with sr.Microphone(microphoneMain.microphoneNum) as source:
-            print("พูดว่า 'หวัดดีน้องเกษม'")
-            #เปิดการตัดเสียงรบกวน
-            recognizer.adjust_for_ambient_noise(source)
-            #บันทึกเสียงพูด
-            audio = recognizer.listen(source)
-            #เริ่มแปลงเสียง
-            try:
-                #แปลงเสียง
-                textRecognition = recognizer.recognize_google(audio, language = languageRecognition)
-                print("ข้อความที่อ่านได้คือ : ", textRecognition)
-                return textRecognition
-            #ไม่สามารถรับเสียงได้หรืออาจจะไม่ได้ยินเสียง
-            except sr.UnknownValueError:
-                print("ไม่สามารถรับรู้เสียง")
-                return "ว่าง"
-            #เกิดข้อผิดพลาดหรือไม่สามารถเชื่อมต่อบริการได้
-            except sr.RequestError as e:
-                print(f"เกิดข้อผิดพลาดในการร้องขอ: {e}")
-                return "ว่าง"
+def recognition() :
+    global nameBot
+    languageRecognition = "th-TH"
+
+    recognizer = sr.Recognizer()
+
+    with sr.Microphone(setMicrophoneName()) as source:
+        print("พูดว่า 'หวัดดี" + nameBot + "'")
+
+        recognizer.adjust_for_ambient_noise(source)
+
+        audio = recognizer.listen(source)
+
+        try:
+            textRecognition = recognizer.recognize_google(audio, language = languageRecognition)
+            removedWord1 = "ครับ"
+            textRecognition = textRecognition.replace(removedWord1, "")
+            removedWord2 = "ค่ะ"
+            textRecognition = textRecognition.replace(removedWord2, "")
+            removedWord3 = "คะ"
+            textRecognition = textRecognition.replace(removedWord3, "")
+            removedWord3 = " "
+            textRecognition = textRecognition.replace(removedWord3, "")
+            print("ข้อความที่อ่านได้คือ : ", textRecognition)
+            return textRecognition
+        
+        except sr.UnknownValueError:
+            print("ไม่สามารถรับรู้เสียง")
+            return "ว่าง"
+
+        except sr.RequestError as e:
+            print(f"เกิดข้อผิดพลาดในการร้องขอ: {e}")
+            return "ว่าง"
 
 if __name__ == "__main__" :
     while True:
-        recognitionMain.recognition()
+        recognition()
