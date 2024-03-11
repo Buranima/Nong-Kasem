@@ -54,11 +54,27 @@ def deleteSQL(sqlCommand) :
     cursor.execute(sqlCommand)
     connectDB.commit()
 
+def createDB(sqlCommand) :
+    global cursor, connectDB
+    try:
+        connectDB = mariadb.connect(
+            user = dbUser,
+            password = dbPassword,
+            host = dbHost,
+            port = dbPort,
+            )
+    except mariadb.Error as e:
+        print(f"Error connecting to MariaDB Platform: {e}")
+    cursor = connectDB.cursor()
+    cursor.execute(sqlCommand)
+    connectDB.commit()
+
 if __name__ == "__main__" :
-    connectToDB()
+    #connectToDB()
     # result = browseSQL("SELECT question FROM question_table")
     # print(result)
     # increaseSQL("INSERT INTO question_table (question, answer_fk) VALUES ('" + str("555") + "', " + str(4) + ")")
     #dropSQL("DROP TABLE log_table")
+    createDB("CREATE DATABASE nong_kasem")
     #createSQL("CREATE TABLE log_table(id_log INT(50) NOT NULL AUTO_INCREMENT, question_log VARCHAR(100) NOT NULL , PRIMARY KEY(id_log))")
     #deleteSQL("DELETE FROM log_table WHERE  id_log = 2")
