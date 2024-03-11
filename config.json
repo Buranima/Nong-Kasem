@@ -1,0 +1,44 @@
+{
+   "Name Robot": [
+      {
+         "nameBot": "\u0e19\u0e49\u0e2d\u0e07\u0e40\u0e01\u0e29\u0e21"
+      }
+   ],
+   "Data Base": [
+      {
+         "dbUser": "root"
+      },
+      {
+         "dbPassword": "1234"
+      },
+      {
+         "dbHost": "127.0.0.1"
+      },
+      {
+         "dbPort": 3306
+      },
+      {
+         "dbName": "nong_kasem"
+      }
+   ],
+   "Font": [
+      {
+         "font1": [
+            "TH SarabunPSK",
+            48
+         ]
+      },
+      {
+         "font2": [
+            "TH SarabunPSK",
+            24
+         ]
+      },
+      {
+         "font3": [
+            "TH SarabunPSK",
+            18
+         ]
+      }
+   ]
+}
