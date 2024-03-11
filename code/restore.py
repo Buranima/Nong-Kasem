@@ -17,11 +17,11 @@ def restoreDB() :
 
     time.sleep(1)
     connectToDB()
-    createSQL("CREATE TABLE log_table(id_log INT(50) NOT NULL AUTO_INCREMENT, question_log VARCHAR(100) NOT NULL , PRIMARY KEY(id_log))")
+    createSQL("CREATE TABLE log_table(id_log INT(50) NOT NULL AUTO_INCREMENT, question_log VARCHAR(10000) NOT NULL , PRIMARY KEY(id_log))")
     time.sleep(1)
-    createSQL("CREATE TABLE answer_table(id_answer INT(50) NOT NULL AUTO_INCREMENT, answer VARCHAR(100) NOT NULL , PRIMARY KEY(id_answer))")
+    createSQL("CREATE TABLE answer_table(id_answer INT(50) NOT NULL AUTO_INCREMENT, answer VARCHAR(10000) NOT NULL , PRIMARY KEY(id_answer))")
     time.sleep(1)
-    createSQL("CREATE TABLE question_table(id_question INT(50) NOT NULL AUTO_INCREMENT, question VARCHAR(1000) NOT NULL COLLATE 'utf8mb4_general_ci', answer_fk INT(50) NOT NULL, PRIMARY KEY (id_question) USING BTREE, INDEX answer (answer_fk) USING BTREE, CONSTRAINT FK_question_table_answer_table FOREIGN KEY (answer_fk) REFERENCES answer_table (id_answer) ON UPDATE CASCADE ON DELETE CASCADE)")
+    createSQL("CREATE TABLE question_table(id_question INT(50) NOT NULL AUTO_INCREMENT, question VARCHAR(10000) NOT NULL COLLATE 'utf8mb4_general_ci', answer_fk INT(50) NOT NULL, PRIMARY KEY (id_question) USING BTREE, INDEX answer (answer_fk) USING BTREE, CONSTRAINT FK_question_table_answer_table FOREIGN KEY (answer_fk) REFERENCES answer_table (id_answer) ON UPDATE CASCADE ON DELETE CASCADE)")
     print("คืนค่าฐานข้อมูลเรียนร้อบ")
 
 def restoreJson() :
